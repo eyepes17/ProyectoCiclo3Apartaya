@@ -1,0 +1,65 @@
+drop schema if exists ferreteria;
+create schema ferreteria;
+use ferreteria;
+
+
+create table personal_salud(
+   persal_id INT NOT NULL PRIMARY KEY,
+   persal_nombre VARCHAR(45) NOT NULL,
+   persal_especialidad VARCHAR(45) NOT NULL
+);
+
+create table familiar_designado(
+   fam_id INT NOT NULL PRIMARY KEY,
+   fam_nombre VARCHAR(45) NOT NULL,
+   fam_direccion VARCHAR(45) NOT NULL,
+   fam_telefono VARCHAR(45) NULL,
+   fam_correo VARCHAR(45) NULL
+);
+
+
+create table pacientes(
+   pac_id INT NOT NULL PRIMARY KEY,
+   pac_nombre VARCHAR(45) NOT NULL,
+   pac_direccion VARCHAR(45) NOT NULL,
+   pac_telefono VARCHAR(45) NOT NULL,
+   pac_correo VARCHAR(45) NOT NULL,
+   pac_persalud_id INT NOT NULL,
+   pac_famdesig_id INT NOT NULL,
+   FOREIGN KEY(pac_persalud_id) REFERENCES personal_salud(persal_id),
+   FOREIGN KEY(pac_famdesig_id) REFERENCES familiar_designado(fam_id)
+);
+
+
+create table signos_vitales(
+   sig_id INT NOT NULL PRIMARY KEY,
+   sig_oximetria VARCHAR(45) NOT NULL,
+   sig_frecuencia_respiratoria VARCHAR(45) NOT NULL,
+   sig_frecuencia_cardíaca VARCHAR(45) NOT NULL,
+   sig_temperatura VARCHAR(45) NOT NULL,
+   sig_presión_arterial VARCHAR(45) NOT NULL,
+   sig_glicemias VARCHAR(45) NOT NULL,
+   sig_paciente_id INT NOT NULL,
+   FOREIGN KEY(sig_paciente_id) REFERENCES pacientes(pac_id )	
+);
+
+create table historia_clinica(
+   hist_id INT NOT NULL PRIMARY KEY,
+   hist_sugerencias VARCHAR(500) NOT NULL,
+   hist_fecha DATE NOT NULL,
+   hist_paciente_id INT NOT NULL,
+   FOREIGN KEY(hist_paciente_id) REFERENCES pacientes(pac_id )	
+);
+
+create table loguin(
+   log_id INT NOT NULL PRIMARY KEY,
+   log_usuario VARCHAR(45) NOT NULL,
+   log_contraseña VARCHAR(45) NOT NULL,
+   log_paciente_id INT NOT NULL,
+   log_persalud_id INT NOT NULL,
+   log_famasig_id INT NOT NULL,
+   FOREIGN KEY(log_paciente_id) REFERENCES pacientes(pac_id ),
+   FOREIGN KEY(log_persalud_id) REFERENCES personal_salud(persal_id),
+   FOREIGN KEY(log_famasig_id) REFERENCES familiar_designado(fam_id)	
+);
+

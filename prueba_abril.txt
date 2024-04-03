@@ -1,0 +1,18 @@
+drop schema if exists ferreteria;
+create schema ferreteria;
+use ferreteria;
+
+
+create table personal_salud(
+   persal_id INT NOT NULL PRIMARY KEY,
+   persal_nombre VARCHAR(45) NOT NULL,
+   persal_especialidad VARCHAR(45) NOT NULL
+);
+
+create table familiar_designado(
+   fam_id INT NOT NULL PRIMARY KEY,
+   fam_nombre VARCHAR(45) NOT NULL,
+   fam_direccion VARCHAR(45) NOT NULL,
+   fam_telefono VARCHAR(45) NULL,
+   fam_correo VARCHAR(45) NULL
+);

@@ -16,3 +16,5 @@ create table familiar_designado(
    fam_telefono VARCHAR(45) NULL,
    fam_correo VARCHAR(45) NULL
 );
+
+prueba de mejora
